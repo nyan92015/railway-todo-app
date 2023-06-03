@@ -55,11 +55,22 @@
 }
 
 .task-item-link {
-  display: block;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
   text-decoration: none;
   color: #000000;
+  .container-time {
+    width: 50%;
+    font-weight: bold;
+    .remain {
+      color: rgb(70, 185, 70);
+    }
+    .passed {
+      color: red;
+    }
+  }
 }
 
 .error-message {

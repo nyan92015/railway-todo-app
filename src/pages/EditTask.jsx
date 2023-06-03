@@ -5,11 +5,13 @@ import { useCookies } from 'react-cookie';
 import { url } from '../const';
 import { useNavigate, useParams } from 'react-router-dom';
 import './editTask.scss';
+import Deadline from './Deadline';
 
 export const EditTask = () => {
   const navigate = useNavigate();
   const { listId, taskId } = useParams();
   const [cookies] = useCookies();
+  const [deadline, setDeadline] = useState({});
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
   const [isDone, setIsDone] = useState();
@@ -23,6 +25,11 @@ export const EditTask = () => {
       title: title,
       detail: detail,
       done: isDone,
+      limit: `${deadline.year.toString()}-${deadline.month
+        .toString()
+        .padStart(2, '0')}-${deadline.day.toString().padStart(2, '0')}T${deadline.hour
+        .toString()
+        .padStart(2, '0')}:${deadline.minute.toString().padStart(2, '0')}:00Z`,
     };
 
     axios
@@ -67,6 +74,16 @@ export const EditTask = () => {
         setTitle(task.title);
         setDetail(task.detail);
         setIsDone(task.done);
+
+        const nowDeadline = new Date(`${task.limit.slice(0, -1)}+09:00`);
+        const initDeadline = {
+          year: nowDeadline.getFullYear(),
+          month: nowDeadline.getMonth() + 1,
+          day: nowDeadline.getDate(),
+          hour: nowDeadline.getHours(),
+          minute: nowDeadline.getMinutes(),
+        };
+        setDeadline(initDeadline);
       })
       .catch((err) => {
         setErrorMessage(`タスク情報の取得に失敗しました。${err}`);
@@ -88,6 +105,8 @@ export const EditTask = () => {
             className="edit-task-title"
             value={title}
           />
+          <br />
+          <Deadline deadline={deadline} setDeadline={setDeadline} />
           <br />
           <label>詳細</label>
           <br />
@@ -118,18 +137,10 @@ export const EditTask = () => {
             />
             完了
           </div>
-          <button
-            type="button"
-            className="delete-task-button"
-            onClick={onDeleteTask}
-          >
+          <button type="button" className="delete-task-button" onClick={onDeleteTask}>
             削除
           </button>
-          <button
-            type="button"
-            className="edit-task-button"
-            onClick={onUpdateTask}
-          >
+          <button type="button" className="edit-task-button" onClick={onUpdateTask}>
             更新
           </button>
         </form>

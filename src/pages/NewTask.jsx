@@ -5,8 +5,18 @@ import { url } from '../const';
 import { Header } from '../components/Header';
 import './newTask.scss';
 import { useNavigate } from 'react-router-dom';
+import Deadline from './Deadline';
 
 export const NewTask = () => {
+  const now = new Date();
+  const initDeadline = {
+    year: now.getFullYear(),
+    month: now.getMonth() + 1,
+    day: now.getDate(),
+    hour: now.getHours(),
+    minute: now.getMinutes(),
+  };
+  const [deadline, setDeadline] = useState(initDeadline);
   const [selectListId, setSelectListId] = useState();
   const [lists, setLists] = useState([]);
   const [title, setTitle] = useState('');
@@ -22,6 +32,11 @@ export const NewTask = () => {
       title: title,
       detail: detail,
       done: false,
+      limit: `${deadline.year.toString()}-${deadline.month
+        .toString()
+        .padStart(2, '0')}-${deadline.day.toString().padStart(2, '0')}T${deadline.hour
+        .toString()
+        .padStart(2, '0')}:${deadline.minute.toString().padStart(2, '0')}:00Z`,
     };
 
     axios
@@ -76,25 +91,15 @@ export const NewTask = () => {
           <br />
           <label>タイトル</label>
           <br />
-          <input
-            type="text"
-            onChange={handleTitleChange}
-            className="new-task-title"
-          />
+          <input type="text" onChange={handleTitleChange} className="new-task-title" />
+          <br />
+          <Deadline deadline={deadline} setDeadline={setDeadline} />
           <br />
           <label>詳細</label>
           <br />
-          <textarea
-            type="text"
-            onChange={handleDetailChange}
-            className="new-task-detail"
-          />
+          <textarea type="text" onChange={handleDetailChange} className="new-task-detail" />
           <br />
-          <button
-            type="button"
-            className="new-task-button"
-            onClick={onCreateTask}
-          >
+          <button type="button" className="new-task-button" onClick={onCreateTask}>
             作成
           </button>
         </form>
