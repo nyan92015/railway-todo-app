@@ -69,7 +69,6 @@ export const Home = () => {
     if (e.key === 'ArrowLeft' && index > 0) {
       // 左矢印キーが押され、かつリストが先頭でない場合の処理
       handleSelectList(lists[index - 1].id);
-      console.log(index);
     } else if (e.key === 'ArrowRight' && index < lists.length - 1) {
       // 右矢印キーが押され、かつリストが末尾でない場合の処理
       handleSelectList(lists[index + 1].id);

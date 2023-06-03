@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 .signin {
-  width: 500px;
+  width: 50vw;
   margin: 0 auto;
 }
 
@@ -32,4 +32,16 @@
 
 .error-message {
   color: #ff3333;
+}
+
+@media screen and (max-width: 768px) {
+  .signin {
+    width: 70vw;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sigin {
+    width: 90vw;
+  }
 }

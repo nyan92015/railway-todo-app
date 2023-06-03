@@ -16,7 +16,7 @@ export const SignUp = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessge] = useState();
-  const [setCookie] = useCookies();
+  const [cookies, setCookie, removeCookie] = useCookies();
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handleNameChange = (e) => setName(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -51,27 +51,15 @@ export const SignUp = () => {
         <form className="signup-form">
           <label>メールアドレス</label>
           <br />
-          <input
-            type="email"
-            onChange={handleEmailChange}
-            className="email-input"
-          />
+          <input type="email" onChange={handleEmailChange} className="email-input" />
           <br />
           <label>ユーザ名</label>
           <br />
-          <input
-            type="text"
-            onChange={handleNameChange}
-            className="name-input"
-          />
+          <input type="text" onChange={handleNameChange} className="name-input" />
           <br />
           <label>パスワード</label>
           <br />
-          <input
-            type="password"
-            onChange={handlePasswordChange}
-            className="password-input"
-          />
+          <input type="password" onChange={handlePasswordChange} className="password-input" />
           <br />
           <button type="button" onClick={onSignUp} className="signup-button">
             作成

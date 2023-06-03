@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 .signup {
-  width: 500px;
+  width: 50vw;
   margin: 0 auto;
 }
 .signup-form {
@@ -28,4 +28,16 @@
 
 .error-message {
   color: #ff3333;
+}
+
+@media screen and (max-width: 768px) {
+  .signup {
+    width: 70vw;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sigin {
+    width: 90vw;
+  }
 }
